@@ -8,6 +8,12 @@ import java.util.Set;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.util.UriTemplate;
 
+/**
+ * Pattern for matching restful requests.
+ * <p> This class is a part of the restful-interceptor module.
+ * <p> This class is used to match the request URI and HTTP method.
+ * <p> This class is used by {@link RestInterceptor}.
+ */
 public class RestfulPattern {
 
     private final UriTemplate path;
@@ -18,10 +24,16 @@ public class RestfulPattern {
         this.methods = methods;
     }
 
+    /**
+     * Create a new instance of {@link RestfulPattern} with the given path and HTTP method Collections.
+     */
     public static RestfulPattern of(final String path, final Collection<HttpMethod> methods) {
         return new RestfulPattern(new UriTemplate(path), new HashSet<>(methods));
     }
 
+    /**
+     * Create a new instance of {@link RestfulPattern} with the given path and HTTP method.
+     */
     public static RestfulPattern of(final String path, final HttpMethod method) {
         return new RestfulPattern(new UriTemplate(path), Set.of(method));
     }
@@ -30,6 +42,10 @@ public class RestfulPattern {
         return new RestfulPatternBuilder();
     }
 
+    /**
+     * Compare the request URI and HTTP method.
+     * <p> If the request URI and HTTP method match, return true.
+     */
     public boolean matches(final HttpServletRequest request) {
         return methods.contains(HttpMethod.valueOf(request.getMethod())) && path.matches(request.getRequestURI());
     }
@@ -68,6 +84,11 @@ public class RestfulPattern {
                 '}';
     }
 
+    /**
+     * Builder for {@link RestfulPattern}.
+     * <p> This class is used to create a new instance of {@link RestfulPattern}.
+     * <p> Can set HTTP methods easily.
+     */
     public static class RestfulPatternBuilder {
 
         private final Set<HttpMethod> methods;
