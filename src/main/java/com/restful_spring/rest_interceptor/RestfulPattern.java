@@ -6,20 +6,24 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import org.springframework.http.HttpMethod;
-import org.springframework.web.util.UriTemplate;
+import org.springframework.util.AntPathMatcher;
 
 /**
  * Pattern for matching restful requests.
  * <p> This class is a part of the restful-interceptor module.
  * <p> This class is used to match the request URI and HTTP method.
  * <p> This class is used by {@link RestInterceptor}.
+ *
+ * @author Dh3356
+ * @since 0.1
  */
 public class RestfulPattern {
 
-    private final UriTemplate path;
+    private final String path;
     private final Set<HttpMethod> methods;
+    private final AntPathMatcher pathMatcher = new AntPathMatcher();
 
-    private RestfulPattern(final UriTemplate path, final Set<HttpMethod> methods) {
+    private RestfulPattern(final String path, final Set<HttpMethod> methods) {
         this.path = path;
         this.methods = methods;
     }
@@ -28,14 +32,14 @@ public class RestfulPattern {
      * Create a new instance of {@link RestfulPattern} with the given path and HTTP method Collections.
      */
     public static RestfulPattern of(final String path, final Collection<HttpMethod> methods) {
-        return new RestfulPattern(new UriTemplate(path), new HashSet<>(methods));
+        return new RestfulPattern(path, new HashSet<>(methods));
     }
 
     /**
      * Create a new instance of {@link RestfulPattern} with the given path and HTTP method.
      */
     public static RestfulPattern of(final String path, final HttpMethod method) {
-        return new RestfulPattern(new UriTemplate(path), Set.of(method));
+        return new RestfulPattern(path, Set.of(method));
     }
 
     public static RestfulPatternBuilder builder() {
@@ -47,11 +51,12 @@ public class RestfulPattern {
      * <p> If the request URI and HTTP method match, return true.
      */
     public boolean matches(final HttpServletRequest request) {
-        return methods.contains(HttpMethod.valueOf(request.getMethod())) && path.matches(request.getRequestURI());
+        return methods.contains(HttpMethod.valueOf(request.getMethod())) &&
+                pathMatcher.match(path, request.getRequestURI());
     }
 
     public String getPath() {
-        return path.toString();
+        return path;
     }
 
     @Override
@@ -80,7 +85,7 @@ public class RestfulPattern {
     public String toString() {
         return "RestfulPattern{" +
                 "methods=" + methods +
-                ", path=" + path.toString() +
+                ", path=" + path +
                 '}';
     }
 
@@ -91,16 +96,14 @@ public class RestfulPattern {
      */
     public static class RestfulPatternBuilder {
 
-        private final Set<HttpMethod> methods;
-        private UriTemplate path;
+        private final Set<HttpMethod> methods = new HashSet<>();
+        private String path = "/**";
 
         public RestfulPatternBuilder() {
-            this.path = new UriTemplate("/**");
-            this.methods = new HashSet<>();
         }
 
         public RestfulPatternBuilder path(String path) {
-            this.path = new UriTemplate(path);
+            this.path = path;
             return this;
         }
 
