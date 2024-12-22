@@ -55,7 +55,7 @@ repositories {
 
 dependencies {
     ...
-    implementation 'com.github.Dh3356:rest-interceptor:v{version}'
+    implementation 'com.github.Dh3356:rest_interceptor:v{version}'
     // example: implementation 'com.github.Dh3356:rest_interceptor:v0.1'
 }
 ```
