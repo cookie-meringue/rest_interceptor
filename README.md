@@ -99,7 +99,7 @@ public class WebConfig implements WebMvcConfigurer {
         restInterceptorRegistry.addInterceptor(testInterceptor)
                 .addRestfulPatterns(RestfulPattern.of("/memos", HttpMethod.GET)); // GET /memos
 
-        restInterceptorRegistry.build(); // build() must be called.
+        restInterceptorRegistry.build(); // Deprecated Since v1.0
     }
 }
 ```
