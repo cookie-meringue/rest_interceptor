@@ -1,5 +1,7 @@
 package com.restful_spring.rest_interceptor;
 
+import static org.springframework.http.HttpMethod.GET;
+
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Collection;
 import java.util.HashSet;
@@ -26,6 +28,16 @@ public class RestfulPattern {
     private RestfulPattern(final String path, final Set<HttpMethod> methods) {
         this.path = path;
         this.methods = methods;
+    }
+
+    /**
+     * Create a new instance of {@link RestfulPattern} with the given path and HTTP methods.
+     *
+     * @author Dh3356
+     * @since 1.0
+     */
+    public static RestfulPattern of(final String path, final HttpMethod... methods) {
+        return new RestfulPattern(path, Set.of(methods));
     }
 
     /**
@@ -108,7 +120,7 @@ public class RestfulPattern {
         }
 
         public RestfulPatternBuilder get() {
-            this.methods.add(HttpMethod.GET);
+            this.methods.add(GET);
             return this;
         }
 
