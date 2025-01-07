@@ -31,6 +31,17 @@ public class RestfulPattern {
     }
 
     /**
+     * Create a new instance of {@link RestfulPattern} with the given path.
+     * <p> Default HTTP methods are GET, POST, PUT, DELETE, PATCH, TRACE, OPTIONS, HEAD.
+     *
+     * @author Dh3356
+     * @since 1.0
+     */
+    public static RestfulPattern fromPath(final String path) {
+        return new RestfulPattern(path, Set.of(HttpMethod.values()));
+    }
+
+    /**
      * Create a new instance of {@link RestfulPattern} with the given path and HTTP methods.
      *
      * @author Dh3356
