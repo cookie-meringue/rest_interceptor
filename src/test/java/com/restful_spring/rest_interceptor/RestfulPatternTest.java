@@ -11,8 +11,11 @@ import static org.springframework.http.HttpMethod.PATCH;
 import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.http.HttpMethod.PUT;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpMethod;
 import org.springframework.mock.web.MockHttpServletRequest;
 
 /**
@@ -26,6 +29,20 @@ class RestfulPatternTest {
     private static final String FOO = "/foo";
     private static final String BAR = "/bar";
     private static final String ALL = "/**";
+
+    @Test
+    void createFromPath() {
+        // Given
+        RestfulPattern pattern = RestfulPattern.fromPath(FOO);
+
+        // When
+        List<MockHttpServletRequest> requests = Arrays.stream(HttpMethod.values())
+                .map(method -> new MockHttpServletRequest(method.name(), FOO))
+                .toList();
+
+        // Then
+        requests.forEach(request -> assertTrue(pattern.matches(request)));
+    }
 
     @Test
     void pathMatchingWithSingleHttpMethod() {
