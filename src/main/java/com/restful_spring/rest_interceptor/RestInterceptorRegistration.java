@@ -1,6 +1,5 @@
 package com.restful_spring.rest_interceptor;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
@@ -34,14 +33,24 @@ public class RestInterceptorRegistration {
 
     /**
      * Collection-based variant of {@link #addRestfulPatterns(RestfulPattern...)}.
-     * <p> Call InterceptorRegistration's addPathPatterns method with the paths of the RestfulPatterns.
      */
     public RestInterceptorRegistration addRestfulPatterns(Collection<RestfulPattern> restfulPatterns) {
-        restInterceptor.restfulPatterns = new ArrayList<>(restfulPatterns);
-        registration.addPathPatterns(restfulPatterns.stream()
-                .map(RestfulPattern::getPath)
-                .toList()
-        );
+        return addRestfulPatterns(RestfulPatterns.from(restfulPatterns));
+    }
+
+    /**
+     * Adds the given RestfulPatterns to the RestInterceptor and updates path patterns.
+     * <p>
+     * This method registers the provided RestfulPatterns with the RestInterceptor and ensures that the corresponding
+     * paths are added to the interceptor registration.
+     *
+     * @param restfulPatterns the RestfulPatterns to be registered
+     * @return this RestInterceptorRegistration instance for method chaining
+     * @since Upcoming
+     */
+    public RestInterceptorRegistration addRestfulPatterns(RestfulPatterns restfulPatterns) {
+        restInterceptor.addRestfulPatterns(restfulPatterns);
+        registration.addPathPatterns(restfulPatterns.getPaths());
         return this;
     }
 
