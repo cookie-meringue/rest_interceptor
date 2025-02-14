@@ -1,6 +1,5 @@
 package com.restful_spring.rest_interceptor;
 
-import static org.apache.logging.log4j.Level.TRACE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.http.HttpMethod.DELETE;
@@ -10,6 +9,7 @@ import static org.springframework.http.HttpMethod.OPTIONS;
 import static org.springframework.http.HttpMethod.PATCH;
 import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.http.HttpMethod.PUT;
+import static org.springframework.http.HttpMethod.TRACE;
 
 import java.util.Arrays;
 import java.util.List;
