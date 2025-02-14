@@ -49,7 +49,7 @@ class RestInterceptorTest {
     @Test
     void pathMatchingWithRestfulPattern() {
         // Given
-        interceptor.restfulPatterns = List.of(REGISTRATION_PATTERN);
+        interceptor.restfulPatterns = RestfulPatterns.from(List.of(REGISTRATION_PATTERN));
 
         // When
         request.setRequestURI(FOO);
@@ -63,7 +63,7 @@ class RestInterceptorTest {
     @Test
     void skipWithNonMatchingPath() {
         // Given
-        interceptor.restfulPatterns = List.of(REGISTRATION_PATTERN);
+        interceptor.restfulPatterns = RestfulPatterns.from(List.of(REGISTRATION_PATTERN));
 
         // When
         request.setRequestURI(BAR);
@@ -77,7 +77,7 @@ class RestInterceptorTest {
     @Test
     void shouldSkipWhenNoPatterns() {
         // Given
-        interceptor.restfulPatterns = List.of();
+        interceptor.restfulPatterns = RestfulPatterns.empty();
 
         // When
         request.setRequestURI(FOO);
@@ -90,7 +90,7 @@ class RestInterceptorTest {
     @Test
     void doInternalCalledForMatchingRequest() {
         // Given
-        interceptor.restfulPatterns = List.of(REGISTRATION_PATTERN);
+        interceptor.restfulPatterns = RestfulPatterns.from(List.of(REGISTRATION_PATTERN));
 
         // When
         request.setRequestURI(FOO);
@@ -104,7 +104,7 @@ class RestInterceptorTest {
     @Test
     void doInternalNotCalledForNonMatchingRequest() {
         // Given
-        interceptor.restfulPatterns = List.of(REGISTRATION_PATTERN);
+        interceptor.restfulPatterns = RestfulPatterns.from(List.of(REGISTRATION_PATTERN));
 
         // When
         request.setRequestURI(BAR);

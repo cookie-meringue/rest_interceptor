@@ -2,7 +2,6 @@ package com.restful_spring.rest_interceptor;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -17,7 +16,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
  */
 public abstract class RestInterceptor implements HandlerInterceptor {
 
-    protected List<RestfulPattern> restfulPatterns = List.of();
+    protected RestfulPatterns restfulPatterns = RestfulPatterns.empty();
 
     @Override
     public final boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
@@ -39,8 +38,7 @@ public abstract class RestInterceptor implements HandlerInterceptor {
      * <p> If request path is not matched with any of the restfulPatterns, it should be skipped.
      */
     private boolean shouldSkip(final HttpServletRequest request) {
-        return this.restfulPatterns.stream()
-                .noneMatch(pattern -> pattern.matches(request));
+        return restfulPatterns.noneMatches(request);
     }
 
     /**
@@ -49,5 +47,17 @@ public abstract class RestInterceptor implements HandlerInterceptor {
      */
     protected boolean doInternal(HttpServletRequest request, HttpServletResponse response, Object handler) {
         return true;
+    }
+
+    /**
+     * Adds all RestfulPatterns from the given RestfulPatterns instance.
+     * <p>
+     * This method merges the provided RestfulPatterns into the existing collection.
+     *
+     * @param restfulPatterns the RestfulPatterns to be added
+     * @since Upcoming
+     */
+    void addRestfulPatterns(final RestfulPatterns restfulPatterns) {
+        this.restfulPatterns.addAll(restfulPatterns);
     }
 }
