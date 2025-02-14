@@ -8,7 +8,7 @@ plugins {
 }
 
 group = 'dh3356.restful_interceptor'
-version = '1.0.1'
+version = '1.0.2'
 
 java {
     sourceCompatibility = '17'
@@ -35,7 +35,7 @@ publishing {
         maven(MavenPublication) {
             groupId = 'dh3356.restful_interceptor'
             artifactId = 'restful_interceptor'
-            version = '1.0.1'
+            version = '1.0.2'
 
             from components.java
         }
