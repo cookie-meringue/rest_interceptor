@@ -17,6 +17,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 public abstract class RestInterceptor implements HandlerInterceptor {
 
     protected RestfulPatterns restfulPatterns = RestfulPatterns.empty();
+    protected RestfulPatterns excludePatterns = RestfulPatterns.empty();
 
     @Override
     public final boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
@@ -36,9 +37,10 @@ public abstract class RestInterceptor implements HandlerInterceptor {
     /**
      * Check if the request should be skipped.
      * <p> If request path is not matched with any of the restfulPatterns, it should be skipped.
+     * <p> If request path is matched with any of the excludePatterns, it should be skipped.
      */
     private boolean shouldSkip(final HttpServletRequest request) {
-        return restfulPatterns.noneMatches(request);
+        return excludePatterns.anyMatches(request) || restfulPatterns.noneMatches(request);
     }
 
     /**
@@ -59,5 +61,17 @@ public abstract class RestInterceptor implements HandlerInterceptor {
      */
     void addRestfulPatterns(final RestfulPatterns restfulPatterns) {
         this.restfulPatterns.addAll(restfulPatterns);
+    }
+
+    /**
+     * Adds all RestfulPatterns from the given RestfulPatterns instance.
+     * <p>
+     * This method merges the provided RestfulPatterns into the existing collection.
+     *
+     * @param excludePatterns the RestfulPatterns to be added
+     * @since Upcoming
+     */
+    void addExcludePatterns(final RestfulPatterns excludePatterns) {
+        this.excludePatterns.addAll(excludePatterns);
     }
 }

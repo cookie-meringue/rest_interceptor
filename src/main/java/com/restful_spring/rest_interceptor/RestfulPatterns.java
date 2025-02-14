@@ -56,6 +56,18 @@ public final class RestfulPatterns {
     }
 
     /**
+     * Determines whether the given request matches any RestfulPatterns.
+     *
+     * @param request the HttpServletRequest to be checked against the patterns
+     * @return {@code true} if any patterns match the request, otherwise {@code false}
+     * @since Upcoming
+     */
+    boolean anyMatches(final HttpServletRequest request) {
+        return values.stream()
+                .anyMatch(pattern -> pattern.matches(request));
+    }
+
+    /**
      * Add all RestfulPatterns from another RestfulPatterns.
      *
      * @param restfulPatterns another RestfulPatterns
