@@ -120,4 +120,34 @@ class RestInterceptorTest {
         // Then
         assertThat(doInternalCalled.get()).isFalse();
     }
+
+    @Test
+    void doInternalNotCalledForExcludingRequest() {
+        // Given
+        interceptor.restfulPatterns = RestfulPatterns.from(List.of(REGISTRATION_PATTERN));
+        interceptor.excludePatterns = RestfulPatterns.from(List.of(EXCLUSION_PATTERN));
+
+        // When
+        request.setRequestURI(BAR);
+        request.setMethod(POST.name());
+        interceptor.preHandle(request, response, new Object());
+
+        // Then
+        assertThat(doInternalCalled.get()).isFalse();
+    }
+
+    @Test
+    void doInternalCalledForNonExcludingRequest() {
+        // Given
+        interceptor.restfulPatterns = RestfulPatterns.from(List.of(REGISTRATION_PATTERN));
+        interceptor.excludePatterns = RestfulPatterns.from(List.of(EXCLUSION_PATTERN));
+
+        // When
+        request.setRequestURI(FOO);
+        request.setMethod(GET.name());
+        interceptor.preHandle(request, response, new Object());
+
+        // Then
+        assertThat(doInternalCalled.get()).isTrue();
+    }
 }
