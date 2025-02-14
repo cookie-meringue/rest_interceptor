@@ -55,6 +55,36 @@ public class RestInterceptorRegistration {
     }
 
     /**
+     * Add RestfulPatterns the interceptor should be excluded from.
+     */
+    public RestInterceptorRegistration excludeRestfulPatterns(RestfulPattern... restfulPatterns) {
+        return excludeRestfulPatterns(Arrays.asList(restfulPatterns));
+    }
+
+    /**
+     * Collection-based variant of {@link #excludeRestfulPatterns(RestfulPattern...)}.
+     */
+    public RestInterceptorRegistration excludeRestfulPatterns(Collection<RestfulPattern> restfulPatterns) {
+        return excludeRestfulPatterns(RestfulPatterns.from(restfulPatterns));
+    }
+
+    /**
+     * Adds the given RestfulPatterns to the RestInterceptor and updates exclude path patterns.
+     * <p>
+     * This method registers the provided RestfulPatterns with the RestInterceptor and ensures that the corresponding
+     * paths are added to the exclude path patterns of the interceptor registration.
+     *
+     * @param excludePatterns the RestfulPatterns to be registered
+     * @return this RestInterceptorRegistration instance for method chaining
+     * @since Upcoming
+     */
+    public RestInterceptorRegistration excludeRestfulPatterns(RestfulPatterns excludePatterns) {
+        restInterceptor.addExcludePatterns(excludePatterns);
+        registration.excludePathPatterns(excludePatterns.getPaths());
+        return this;
+    }
+
+    /**
      * Specify an order position to be used. Default is 0.
      */
     public RestInterceptorRegistration order(int order) {
