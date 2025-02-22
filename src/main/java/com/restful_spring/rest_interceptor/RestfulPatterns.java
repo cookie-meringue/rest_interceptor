@@ -10,7 +10,7 @@ import java.util.List;
  * <p>
  * Encapsulates a Collection of RestfulPattern and provides apis.
  *
- * @author Dh3356
+ * @author cookie-meringue
  * @since Upcoming
  */
 public final class RestfulPatterns {

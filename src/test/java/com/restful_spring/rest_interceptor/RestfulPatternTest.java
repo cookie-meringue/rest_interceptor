@@ -21,7 +21,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
 /**
  * Test class for {@link RestfulPattern}.
  *
- * @author Dh3356
+ * @author cookie-meringue
  * @since 0.2
  */
 class RestfulPatternTest {

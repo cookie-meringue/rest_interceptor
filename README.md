@@ -58,6 +58,18 @@ dependencies {
     implementation 'com.github.Dh3356:rest_interceptor:v{version}'
     // example: implementation 'com.github.Dh3356:rest_interceptor:v0.1'
 }
+
+// Since 1.0.3
+repositories {
+    ...
+    maven { url "https://jitpack.io" }
+}
+
+dependencies {
+    ...
+    implementation 'com.github.cookie-meringue:rest_interceptor:v{version}'
+    // example: implementation 'com.github.cookie-meringue:rest_interceptor:v1.0.3'
+}
 ```
 
 ## Sample Code

@@ -5,7 +5,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 /**
  * Helps with configuring a list of RestInterceptors. Adaptor between InterceptorRegistry and RestInterceptor.
  *
- * @author Dh3356
+ * @author cookie-meringue
  * @since 0.1
  */
 public class RestInterceptorRegistry {
