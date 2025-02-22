@@ -46,7 +46,7 @@ public class RestInterceptorRegistration {
      *
      * @param restfulPatterns the RestfulPatterns to be registered
      * @return this RestInterceptorRegistration instance for method chaining
-     * @since Upcoming
+     * @since 1.0.2
      */
     public RestInterceptorRegistration addRestfulPatterns(RestfulPatterns restfulPatterns) {
         restInterceptor.addRestfulPatterns(restfulPatterns);
@@ -76,7 +76,7 @@ public class RestInterceptorRegistration {
      *
      * @param excludePatterns the RestfulPatterns to be registered
      * @return this RestInterceptorRegistration instance for method chaining
-     * @since Upcoming
+     * @since 1.0.2
      */
     public RestInterceptorRegistration excludeRestfulPatterns(RestfulPatterns excludePatterns) {
         restInterceptor.addExcludePatterns(excludePatterns);

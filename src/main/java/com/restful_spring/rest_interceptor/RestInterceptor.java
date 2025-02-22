@@ -57,7 +57,7 @@ public abstract class RestInterceptor implements HandlerInterceptor {
      * This method merges the provided RestfulPatterns into the existing collection.
      *
      * @param restfulPatterns the RestfulPatterns to be added
-     * @since Upcoming
+     * @since 1.0.2
      */
     void addRestfulPatterns(final RestfulPatterns restfulPatterns) {
         this.restfulPatterns.addAll(restfulPatterns);
@@ -69,7 +69,7 @@ public abstract class RestInterceptor implements HandlerInterceptor {
      * This method merges the provided RestfulPatterns into the existing collection.
      *
      * @param excludePatterns the RestfulPatterns to be added
-     * @since Upcoming
+     * @since 1.0.2
      */
     void addExcludePatterns(final RestfulPatterns excludePatterns) {
         this.excludePatterns.addAll(excludePatterns);

@@ -11,7 +11,7 @@ import java.util.List;
  * Encapsulates a Collection of RestfulPattern and provides apis.
  *
  * @author cookie-meringue
- * @since Upcoming
+ * @since 1.0.2
  */
 public final class RestfulPatterns {
 
@@ -60,7 +60,7 @@ public final class RestfulPatterns {
      *
      * @param request the HttpServletRequest to be checked against the patterns
      * @return {@code true} if any patterns match the request, otherwise {@code false}
-     * @since Upcoming
+     * @since 1.0.2
      */
     boolean anyMatches(final HttpServletRequest request) {
         return values.stream()
