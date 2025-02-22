@@ -11,7 +11,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
  * <p> Request will always be passed if it is a pre-flight request or it is not matched with any of the
  * restfulPatterns.
  *
- * @author Dh3356
+ * @author cookie-meringue
  * @since 0.1
  */
 public abstract class RestInterceptor implements HandlerInterceptor {

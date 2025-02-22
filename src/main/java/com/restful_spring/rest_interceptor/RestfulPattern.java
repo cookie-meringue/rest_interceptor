@@ -16,7 +16,7 @@ import org.springframework.util.AntPathMatcher;
  * <p> This class is used to match the request URI and HTTP method.
  * <p> This class is used by {@link RestInterceptor}.
  *
- * @author Dh3356
+ * @author cookie-meringue
  * @since 0.1
  */
 public class RestfulPattern {
@@ -34,7 +34,7 @@ public class RestfulPattern {
      * Create a new instance of {@link RestfulPattern} with the given path.
      * <p> Default HTTP methods are GET, POST, PUT, DELETE, PATCH, TRACE, OPTIONS, HEAD.
      *
-     * @author Dh3356
+     * @author cookie-meringue
      * @since 1.0
      */
     public static RestfulPattern fromPath(final String path) {
@@ -44,7 +44,7 @@ public class RestfulPattern {
     /**
      * Create a new instance of {@link RestfulPattern} with the given path and HTTP methods.
      *
-     * @author Dh3356
+     * @author cookie-meringue
      * @since 1.0
      */
     public static RestfulPattern of(final String path, final HttpMethod... methods) {

@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 /**
  * Assists with the creation of a {@link RestInterceptor}.
  *
- * @author Dh3356
+ * @author cookie-meringue
  * @since 0.1
  */
 public class RestInterceptorRegistration {

@@ -7,7 +7,7 @@ plugins {
     id 'maven-publish'
 }
 
-group = 'dh3356.restful_interceptor'
+group = 'cookie-meringue.restful_interceptor'
 version = '1.0.2'
 
 java {
@@ -33,7 +33,7 @@ dependencies {
 publishing {
     publications {
         maven(MavenPublication) {
-            groupId = 'dh3356.restful_interceptor'
+            groupId = 'cookie-meringue.restful_interceptor'
             artifactId = 'restful_interceptor'
             version = '1.0.2'
 
