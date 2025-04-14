@@ -19,7 +19,7 @@ import org.springframework.util.AntPathMatcher;
  * @author cookie-meringue
  * @since 0.1
  */
-public class RestfulPattern {
+public final class RestfulPattern {
 
     private final String path;
     private final Set<HttpMethod> methods;
@@ -73,12 +73,12 @@ public class RestfulPattern {
      * Compare the request URI and HTTP method.
      * <p> If the request URI and HTTP method match, return true.
      */
-    public boolean matches(final HttpServletRequest request) {
+    boolean matches(final HttpServletRequest request) {
         return methods.contains(HttpMethod.valueOf(request.getMethod())) &&
-                pathMatcher.match(path, request.getRequestURI());
+            pathMatcher.match(path, request.getRequestURI());
     }
 
-    public String getPath() {
+    String getPath() {
         return path;
     }
 
@@ -107,9 +107,9 @@ public class RestfulPattern {
     @Override
     public String toString() {
         return "RestfulPattern{" +
-                "methods=" + methods +
-                ", path=" + path +
-                '}';
+            "methods=" + methods +
+            ", path=" + path +
+            '}';
     }
 
     /**

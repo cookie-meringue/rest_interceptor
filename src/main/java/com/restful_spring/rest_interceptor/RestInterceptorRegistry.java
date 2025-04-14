@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
  * @author cookie-meringue
  * @since 0.1
  */
-public class RestInterceptorRegistry {
+public final class RestInterceptorRegistry {
 
     private final InterceptorRegistry registry;
 
