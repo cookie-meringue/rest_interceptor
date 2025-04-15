@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
  * @author cookie-meringue
  * @since 0.1
  */
-public class RestInterceptorRegistration {
+public final class RestInterceptorRegistration {
 
     private final RestInterceptor restInterceptor;
     private final InterceptorRegistration registration;
@@ -48,7 +48,7 @@ public class RestInterceptorRegistration {
      * @return this RestInterceptorRegistration instance for method chaining
      * @since 1.0.2
      */
-    public RestInterceptorRegistration addRestfulPatterns(RestfulPatterns restfulPatterns) {
+    RestInterceptorRegistration addRestfulPatterns(RestfulPatterns restfulPatterns) {
         restInterceptor.addRestfulPatterns(restfulPatterns);
         registration.addPathPatterns(restfulPatterns.getPaths());
         return this;
@@ -78,7 +78,7 @@ public class RestInterceptorRegistration {
      * @return this RestInterceptorRegistration instance for method chaining
      * @since 1.0.2
      */
-    public RestInterceptorRegistration excludeRestfulPatterns(RestfulPatterns excludePatterns) {
+    RestInterceptorRegistration excludeRestfulPatterns(RestfulPatterns excludePatterns) {
         restInterceptor.addExcludePatterns(excludePatterns);
         registration.excludePathPatterns(excludePatterns.getPaths());
         return this;

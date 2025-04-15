@@ -16,8 +16,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
  */
 public abstract class RestInterceptor implements HandlerInterceptor {
 
-    protected RestfulPatterns restfulPatterns = RestfulPatterns.empty();
-    protected RestfulPatterns excludePatterns = RestfulPatterns.empty();
+    RestfulPatterns restfulPatterns = RestfulPatterns.empty();
+    RestfulPatterns excludePatterns = RestfulPatterns.empty();
 
     @Override
     public final boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {

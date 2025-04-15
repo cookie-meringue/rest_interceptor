@@ -13,7 +13,7 @@ import java.util.List;
  * @author cookie-meringue
  * @since 1.0.2
  */
-public final class RestfulPatterns {
+final class RestfulPatterns {
 
     private final List<RestfulPattern> values;
 
@@ -52,7 +52,7 @@ public final class RestfulPatterns {
      */
     boolean noneMatches(final HttpServletRequest request) {
         return values.stream()
-                .noneMatch(pattern -> pattern.matches(request));
+            .noneMatch(pattern -> pattern.matches(request));
     }
 
     /**
@@ -64,7 +64,7 @@ public final class RestfulPatterns {
      */
     boolean anyMatches(final HttpServletRequest request) {
         return values.stream()
-                .anyMatch(pattern -> pattern.matches(request));
+            .anyMatch(pattern -> pattern.matches(request));
     }
 
     /**
@@ -83,7 +83,7 @@ public final class RestfulPatterns {
      */
     List<String> getPaths() {
         return values.stream()
-                .map(RestfulPattern::getPath)
-                .toList();
+            .map(RestfulPattern::getPath)
+            .toList();
     }
 }
