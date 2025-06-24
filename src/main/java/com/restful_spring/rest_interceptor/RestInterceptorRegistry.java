@@ -21,7 +21,7 @@ public final class RestInterceptorRegistry {
      *
      * @param restInterceptor the restInterceptor to add
      * @return an {@link RestInterceptorRegistration} that allows you optionally configure the registered
-     * restInterceptor further for example adding RestfulPatterns it should apply to.
+     * restInterceptor further for example adding RestPatterns it should apply to.
      */
     public RestInterceptorRegistration addInterceptor(RestInterceptor restInterceptor) {
         return new RestInterceptorRegistration(restInterceptor, registry);
