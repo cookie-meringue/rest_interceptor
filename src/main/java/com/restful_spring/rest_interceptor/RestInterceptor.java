@@ -16,8 +16,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
  */
 public abstract class RestInterceptor implements HandlerInterceptor {
 
-    RestfulPatterns restfulPatterns = RestfulPatterns.empty();
-    RestfulPatterns excludePatterns = RestfulPatterns.empty();
+    RestPatterns restPatterns = RestPatterns.empty();
+    RestPatterns excludePatterns = RestPatterns.empty();
 
     @Override
     public final boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
@@ -40,7 +40,7 @@ public abstract class RestInterceptor implements HandlerInterceptor {
      * <p> If request path is matched with any of the excludePatterns, it should be skipped.
      */
     private boolean shouldSkip(final HttpServletRequest request) {
-        return excludePatterns.anyMatches(request) || restfulPatterns.noneMatches(request);
+        return excludePatterns.anyMatches(request) || restPatterns.noneMatches(request);
     }
 
     /**
@@ -52,26 +52,26 @@ public abstract class RestInterceptor implements HandlerInterceptor {
     }
 
     /**
-     * Adds all RestfulPatterns from the given RestfulPatterns instance.
+     * Adds all RestPatterns from the given RestPatterns instance.
      * <p>
-     * This method merges the provided RestfulPatterns into the existing collection.
+     * This method merges the provided RestPatterns into the existing collection.
      *
-     * @param restfulPatterns the RestfulPatterns to be added
+     * @param restPatterns the RestPatterns to be added
      * @since 1.0.2
      */
-    void addRestfulPatterns(final RestfulPatterns restfulPatterns) {
-        this.restfulPatterns.addAll(restfulPatterns);
+    void addRestPatterns(final RestPatterns restPatterns) {
+        this.restPatterns.addAll(restPatterns);
     }
 
     /**
-     * Adds all RestfulPatterns from the given RestfulPatterns instance.
+     * Adds all RestPatterns from the given RestPatterns instance.
      * <p>
-     * This method merges the provided RestfulPatterns into the existing collection.
+     * This method merges the provided RestPatterns into the existing collection.
      *
-     * @param excludePatterns the RestfulPatterns to be added
+     * @param excludePatterns the RestPatterns to be added
      * @since 1.0.2
      */
-    void addExcludePatterns(final RestfulPatterns excludePatterns) {
+    void addExcludePatterns(final RestPatterns excludePatterns) {
         this.excludePatterns.addAll(excludePatterns);
     }
 }

@@ -19,12 +19,12 @@ import org.springframework.http.HttpMethod;
 import org.springframework.mock.web.MockHttpServletRequest;
 
 /**
- * Test class for {@link RestfulPattern}.
+ * Test class for {@link RestPattern}.
  *
  * @author cookie-meringue
  * @since 0.2
  */
-class RestfulPatternTest {
+class RestPatternTest {
 
     private static final String FOO = "/foo";
     private static final String BAR = "/bar";
@@ -33,7 +33,7 @@ class RestfulPatternTest {
     @Test
     void createFromPath() {
         // Given
-        RestfulPattern pattern = RestfulPattern.fromPath(FOO);
+        RestPattern pattern = RestPattern.fromPath(FOO);
 
         // When
         List<MockHttpServletRequest> requests = Arrays.stream(HttpMethod.values())
@@ -47,7 +47,7 @@ class RestfulPatternTest {
     @Test
     void pathMatchingWithSingleHttpMethod() {
         // Given
-        RestfulPattern pattern = RestfulPattern.of(FOO, GET);
+        RestPattern pattern = RestPattern.of(FOO, GET);
 
         // When
         MockHttpServletRequest request = new MockHttpServletRequest(GET.name(), FOO);
@@ -59,7 +59,7 @@ class RestfulPatternTest {
     @Test
     void pathMatchingWithMultipleHttpMethods() {
         // Given
-        RestfulPattern pattern = RestfulPattern.of(FOO, Set.of(GET, POST));
+        RestPattern pattern = RestPattern.of(FOO, Set.of(GET, POST));
 
         // When
         MockHttpServletRequest getRequest = new MockHttpServletRequest(GET.name(), FOO);
@@ -73,7 +73,7 @@ class RestfulPatternTest {
     @Test
     void pathMatchingWithWildcard() {
         // Given
-        RestfulPattern pattern = RestfulPattern.of(FOO + ALL, Set.of(GET));
+        RestPattern pattern = RestPattern.of(FOO + ALL, Set.of(GET));
 
         // When
         MockHttpServletRequest request = new MockHttpServletRequest(GET.name(), FOO + BAR);
@@ -85,7 +85,7 @@ class RestfulPatternTest {
     @Test
     void pathNotMatching() {
         // Given
-        RestfulPattern pattern = RestfulPattern.of(FOO, GET);
+        RestPattern pattern = RestPattern.of(FOO, GET);
 
         // When
         MockHttpServletRequest request = new MockHttpServletRequest(GET.name(), BAR);
@@ -97,7 +97,7 @@ class RestfulPatternTest {
     @Test
     void methodNotMatching() {
         // Given
-        RestfulPattern pattern = RestfulPattern.of(FOO, GET);
+        RestPattern pattern = RestPattern.of(FOO, GET);
 
         // When
         MockHttpServletRequest request = new MockHttpServletRequest(POST.name(), FOO);
@@ -109,7 +109,7 @@ class RestfulPatternTest {
     @Test
     void pathNotMatchingWithWildcard() {
         // Given
-        RestfulPattern pattern = RestfulPattern.of(FOO + ALL, Set.of(GET));
+        RestPattern pattern = RestPattern.of(FOO + ALL, Set.of(GET));
 
         // When
         MockHttpServletRequest request = new MockHttpServletRequest(GET.name(), BAR + FOO);
@@ -121,7 +121,7 @@ class RestfulPatternTest {
     @Test
     void pathVariableMatching() {
         // Given
-        RestfulPattern pattern = RestfulPattern.of(FOO + "/{id}", GET);
+        RestPattern pattern = RestPattern.of(FOO + "/{id}", GET);
 
         // When
         MockHttpServletRequest request = new MockHttpServletRequest(GET.name(), FOO + "/123");
@@ -133,7 +133,7 @@ class RestfulPatternTest {
     @Test
     void emptyMethodsSet() {
         // Given
-        RestfulPattern pattern = RestfulPattern.builder().path(FOO).build();
+        RestPattern pattern = RestPattern.builder().path(FOO).build();
 
         // When
         MockHttpServletRequest request = new MockHttpServletRequest(GET.name(), FOO);
@@ -145,7 +145,7 @@ class RestfulPatternTest {
     @Test
     void builderPattern() {
         // Given
-        RestfulPattern pattern = RestfulPattern.builder()
+        RestPattern pattern = RestPattern.builder()
                 .path(FOO)
                 .get()
                 .post()
@@ -163,7 +163,7 @@ class RestfulPatternTest {
     @Test
     void allMethods() {
         // Given
-        RestfulPattern pattern = RestfulPattern.builder().path(FOO).all().build();
+        RestPattern pattern = RestPattern.builder().path(FOO).all().build();
 
         // When
         MockHttpServletRequest getRequest = new MockHttpServletRequest(GET.name(), FOO);

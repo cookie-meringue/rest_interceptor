@@ -18,8 +18,8 @@ class RestInterceptorTest {
 
     private static final String FOO = "/foo";
     private static final String BAR = "/bar";
-    private static final RestfulPattern REGISTRATION_PATTERN = RestfulPattern.of(FOO, GET);
-    private static final RestfulPattern EXCLUSION_PATTERN = RestfulPattern.of(BAR, POST);
+    private static final RestPattern REGISTRATION_PATTERN = RestPattern.of(FOO, GET);
+    private static final RestPattern EXCLUSION_PATTERN = RestPattern.of(BAR, POST);
     private final AtomicBoolean doInternalCalled = new AtomicBoolean(false);
     private RestInterceptor interceptor;
     private MockHttpServletRequest request;
@@ -53,9 +53,9 @@ class RestInterceptorTest {
     }
 
     @Test
-    void pathMatchingWithRestfulPattern() {
+    void pathMatchingWithRestPattern() {
         // Given
-        interceptor.restfulPatterns = RestfulPatterns.from(List.of(REGISTRATION_PATTERN));
+        interceptor.restPatterns = RestPatterns.from(List.of(REGISTRATION_PATTERN));
 
         // When
         request.setRequestURI(FOO);
@@ -69,7 +69,7 @@ class RestInterceptorTest {
     @Test
     void skipWithNonMatchingPath() {
         // Given
-        interceptor.restfulPatterns = RestfulPatterns.from(List.of(REGISTRATION_PATTERN));
+        interceptor.restPatterns = RestPatterns.from(List.of(REGISTRATION_PATTERN));
 
         // When
         request.setRequestURI(BAR);
@@ -83,7 +83,7 @@ class RestInterceptorTest {
     @Test
     void shouldSkipWhenNoPatterns() {
         // Given
-        interceptor.restfulPatterns = RestfulPatterns.empty();
+        interceptor.restPatterns = RestPatterns.empty();
 
         // When
         request.setRequestURI(FOO);
@@ -96,7 +96,7 @@ class RestInterceptorTest {
     @Test
     void doInternalCalledForMatchingRequest() {
         // Given
-        interceptor.restfulPatterns = RestfulPatterns.from(List.of(REGISTRATION_PATTERN));
+        interceptor.restPatterns = RestPatterns.from(List.of(REGISTRATION_PATTERN));
 
         // When
         request.setRequestURI(FOO);
@@ -110,7 +110,7 @@ class RestInterceptorTest {
     @Test
     void doInternalNotCalledForNonMatchingRequest() {
         // Given
-        interceptor.restfulPatterns = RestfulPatterns.from(List.of(REGISTRATION_PATTERN));
+        interceptor.restPatterns = RestPatterns.from(List.of(REGISTRATION_PATTERN));
 
         // When
         request.setRequestURI(BAR);
@@ -124,8 +124,8 @@ class RestInterceptorTest {
     @Test
     void doInternalNotCalledForExcludingRequest() {
         // Given
-        interceptor.restfulPatterns = RestfulPatterns.from(List.of(REGISTRATION_PATTERN));
-        interceptor.excludePatterns = RestfulPatterns.from(List.of(EXCLUSION_PATTERN));
+        interceptor.restPatterns = RestPatterns.from(List.of(REGISTRATION_PATTERN));
+        interceptor.excludePatterns = RestPatterns.from(List.of(EXCLUSION_PATTERN));
 
         // When
         request.setRequestURI(BAR);
@@ -139,8 +139,8 @@ class RestInterceptorTest {
     @Test
     void doInternalCalledForNonExcludingRequest() {
         // Given
-        interceptor.restfulPatterns = RestfulPatterns.from(List.of(REGISTRATION_PATTERN));
-        interceptor.excludePatterns = RestfulPatterns.from(List.of(EXCLUSION_PATTERN));
+        interceptor.restPatterns = RestPatterns.from(List.of(REGISTRATION_PATTERN));
+        interceptor.excludePatterns = RestPatterns.from(List.of(EXCLUSION_PATTERN));
 
         // When
         request.setRequestURI(FOO);

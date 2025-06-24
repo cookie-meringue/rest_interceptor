@@ -19,54 +19,54 @@ import org.springframework.util.AntPathMatcher;
  * @author cookie-meringue
  * @since 0.1
  */
-public final class RestfulPattern {
+public final class RestPattern {
 
     private final String path;
     private final Set<HttpMethod> methods;
     private final AntPathMatcher pathMatcher = new AntPathMatcher();
 
-    private RestfulPattern(final String path, final Set<HttpMethod> methods) {
+    private RestPattern(final String path, final Set<HttpMethod> methods) {
         this.path = path;
         this.methods = methods;
     }
 
     /**
-     * Create a new instance of {@link RestfulPattern} with the given path.
+     * Create a new instance of {@link RestPattern} with the given path.
      * <p> Default HTTP methods are GET, POST, PUT, DELETE, PATCH, TRACE, OPTIONS, HEAD.
      *
      * @author cookie-meringue
      * @since 1.0
      */
-    public static RestfulPattern fromPath(final String path) {
-        return new RestfulPattern(path, Set.of(HttpMethod.values()));
+    public static RestPattern fromPath(final String path) {
+        return new RestPattern(path, Set.of(HttpMethod.values()));
     }
 
     /**
-     * Create a new instance of {@link RestfulPattern} with the given path and HTTP methods.
+     * Create a new instance of {@link RestPattern} with the given path and HTTP methods.
      *
      * @author cookie-meringue
      * @since 1.0
      */
-    public static RestfulPattern of(final String path, final HttpMethod... methods) {
-        return new RestfulPattern(path, Set.of(methods));
+    public static RestPattern of(final String path, final HttpMethod... methods) {
+        return new RestPattern(path, Set.of(methods));
     }
 
     /**
-     * Create a new instance of {@link RestfulPattern} with the given path and HTTP method Collections.
+     * Create a new instance of {@link RestPattern} with the given path and HTTP method Collections.
      */
-    public static RestfulPattern of(final String path, final Collection<HttpMethod> methods) {
-        return new RestfulPattern(path, new HashSet<>(methods));
+    public static RestPattern of(final String path, final Collection<HttpMethod> methods) {
+        return new RestPattern(path, new HashSet<>(methods));
     }
 
     /**
-     * Create a new instance of {@link RestfulPattern} with the given path and HTTP method.
+     * Create a new instance of {@link RestPattern} with the given path and HTTP method.
      */
-    public static RestfulPattern of(final String path, final HttpMethod method) {
-        return new RestfulPattern(path, Set.of(method));
+    public static RestPattern of(final String path, final HttpMethod method) {
+        return new RestPattern(path, Set.of(method));
     }
 
-    public static RestfulPatternBuilder builder() {
-        return new RestfulPatternBuilder();
+    public static RestPatternBuilder builder() {
+        return new RestPatternBuilder();
     }
 
     /**
@@ -75,7 +75,7 @@ public final class RestfulPattern {
      */
     boolean matches(final HttpServletRequest request) {
         return methods.contains(HttpMethod.valueOf(request.getMethod())) &&
-            pathMatcher.match(path, request.getRequestURI());
+                pathMatcher.match(path, request.getRequestURI());
     }
 
     String getPath() {
@@ -87,7 +87,7 @@ public final class RestfulPattern {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof RestfulPattern that)) {
+        if (!(o instanceof RestPattern that)) {
             return false;
         }
 
@@ -106,79 +106,79 @@ public final class RestfulPattern {
 
     @Override
     public String toString() {
-        return "RestfulPattern{" +
-            "methods=" + methods +
-            ", path=" + path +
-            '}';
+        return "RestPattern{" +
+                "methods=" + methods +
+                ", path=" + path +
+                '}';
     }
 
     /**
-     * Builder for {@link RestfulPattern}.
-     * <p> This class is used to create a new instance of {@link RestfulPattern}.
+     * Builder for {@link RestPattern}.
+     * <p> This class is used to create a new instance of {@link RestPattern}.
      * <p> Can set HTTP methods easily.
      */
-    public static class RestfulPatternBuilder {
+    public static class RestPatternBuilder {
 
         private final Set<HttpMethod> methods = new HashSet<>();
         private String path = "/**";
 
-        public RestfulPatternBuilder() {
+        public RestPatternBuilder() {
         }
 
-        public RestfulPatternBuilder path(String path) {
+        public RestPatternBuilder path(String path) {
             this.path = path;
             return this;
         }
 
-        public RestfulPatternBuilder get() {
+        public RestPatternBuilder get() {
             this.methods.add(GET);
             return this;
         }
 
-        public RestfulPatternBuilder post() {
+        public RestPatternBuilder post() {
             this.methods.add(HttpMethod.POST);
             return this;
         }
 
-        public RestfulPatternBuilder put() {
+        public RestPatternBuilder put() {
             this.methods.add(HttpMethod.PUT);
             return this;
         }
 
-        public RestfulPatternBuilder delete() {
+        public RestPatternBuilder delete() {
             this.methods.add(HttpMethod.DELETE);
             return this;
         }
 
-        public RestfulPatternBuilder patch() {
+        public RestPatternBuilder patch() {
             this.methods.add(HttpMethod.PATCH);
             return this;
         }
 
-        public RestfulPatternBuilder trace() {
+        public RestPatternBuilder trace() {
             this.methods.add(HttpMethod.TRACE);
             return this;
         }
 
-        public RestfulPatternBuilder options() {
+        public RestPatternBuilder options() {
             this.methods.add(HttpMethod.OPTIONS);
             return this;
         }
 
-        public RestfulPatternBuilder head() {
+        public RestPatternBuilder head() {
             this.methods.add(HttpMethod.HEAD);
             return this;
         }
 
-        public RestfulPatternBuilder all() {
+        public RestPatternBuilder all() {
             return get().post().put().delete().patch().trace().options().head();
         }
 
-        public RestfulPattern build() {
+        public RestPattern build() {
             if (methods.isEmpty()) {
-                return new RestfulPattern(path, Set.of(HttpMethod.values()));
+                return new RestPattern(path, Set.of(HttpMethod.values()));
             }
-            return new RestfulPattern(path, methods);
+            return new RestPattern(path, methods);
         }
     }
 }

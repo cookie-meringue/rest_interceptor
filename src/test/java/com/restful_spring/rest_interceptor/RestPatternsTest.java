@@ -8,13 +8,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpMethod;
 import org.springframework.mock.web.MockHttpServletRequest;
 
-class RestfulPatternsTest {
+class RestPatternsTest {
 
-    private static List<RestfulPattern> parseValues(RestfulPatterns patterns) {
+    private static List<RestPattern> parseValues(RestPatterns patterns) {
         try {
-            Field valuesField = RestfulPatterns.class.getDeclaredField("values");
+            Field valuesField = RestPatterns.class.getDeclaredField("values");
             valuesField.setAccessible(true);
-            return (List<RestfulPattern>) valuesField.get(patterns);
+            return (List<RestPattern>) valuesField.get(patterns);
         } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
@@ -24,10 +24,10 @@ class RestfulPatternsTest {
     void emptyCreation() {
 
         // Given
-        RestfulPatterns patterns = RestfulPatterns.empty();
+        RestPatterns patterns = RestPatterns.empty();
 
         // When
-        List<RestfulPattern> values = parseValues(patterns);
+        List<RestPattern> values = parseValues(patterns);
         int actual = values.size();
 
         // Then
@@ -38,9 +38,9 @@ class RestfulPatternsTest {
     void noneMatches() {
 
         // Given
-        RestfulPattern pattern1 = RestfulPattern.of("/foo", HttpMethod.GET);
-        RestfulPattern pattern2 = RestfulPattern.of("/bar", HttpMethod.POST);
-        RestfulPatterns patterns = RestfulPatterns.from(List.of(pattern1, pattern2));
+        RestPattern pattern1 = RestPattern.of("/foo", HttpMethod.GET);
+        RestPattern pattern2 = RestPattern.of("/bar", HttpMethod.POST);
+        RestPatterns patterns = RestPatterns.from(List.of(pattern1, pattern2));
 
         // When
         MockHttpServletRequest request1 = new MockHttpServletRequest(HttpMethod.GET.name(), "/bar");
@@ -57,12 +57,12 @@ class RestfulPatternsTest {
     void addAll() {
 
         // Given
-        RestfulPattern pattern1 = RestfulPattern.of("/foo", HttpMethod.GET);
-        RestfulPattern pattern2 = RestfulPattern.of("/bar", HttpMethod.POST);
-        RestfulPatterns patterns = RestfulPatterns.empty();
+        RestPattern pattern1 = RestPattern.of("/foo", HttpMethod.GET);
+        RestPattern pattern2 = RestPattern.of("/bar", HttpMethod.POST);
+        RestPatterns patterns = RestPatterns.empty();
 
         // When
-        patterns.addAll(RestfulPatterns.from(List.of(pattern1, pattern2)));
+        patterns.addAll(RestPatterns.from(List.of(pattern1, pattern2)));
         int actual = parseValues(patterns).size();
 
         // Then
@@ -73,9 +73,9 @@ class RestfulPatternsTest {
     void getPaths() {
 
         // Given
-        RestfulPattern pattern1 = RestfulPattern.of("/foo", HttpMethod.GET);
-        RestfulPattern pattern2 = RestfulPattern.of("/bar", HttpMethod.POST);
-        RestfulPatterns patterns = RestfulPatterns.from(List.of(pattern1, pattern2));
+        RestPattern pattern1 = RestPattern.of("/foo", HttpMethod.GET);
+        RestPattern pattern2 = RestPattern.of("/bar", HttpMethod.POST);
+        RestPatterns patterns = RestPatterns.from(List.of(pattern1, pattern2));
 
         // When
         List<String> actual = patterns.getPaths();

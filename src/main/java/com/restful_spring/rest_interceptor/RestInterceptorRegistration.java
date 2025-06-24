@@ -25,60 +25,60 @@ public final class RestInterceptorRegistration {
     }
 
     /**
-     * Add RestfulPatterns the interceptor should be included in.
+     * Add RestPatterns the interceptor should be included in.
      */
-    public RestInterceptorRegistration addRestfulPatterns(RestfulPattern... restfulPatterns) {
-        return addRestfulPatterns(Arrays.asList(restfulPatterns));
+    public RestInterceptorRegistration addRestPatterns(RestPattern... restPatterns) {
+        return addRestPatterns(Arrays.asList(restPatterns));
     }
 
     /**
-     * Collection-based variant of {@link #addRestfulPatterns(RestfulPattern...)}.
+     * Collection-based variant of {@link #addRestPatterns(RestPattern...)}.
      */
-    public RestInterceptorRegistration addRestfulPatterns(Collection<RestfulPattern> restfulPatterns) {
-        return addRestfulPatterns(RestfulPatterns.from(restfulPatterns));
+    public RestInterceptorRegistration addRestPatterns(Collection<RestPattern> restPatterns) {
+        return addRestPatterns(RestPatterns.from(restPatterns));
     }
 
     /**
-     * Adds the given RestfulPatterns to the RestInterceptor and updates path patterns.
+     * Adds the given RestPatterns to the RestInterceptor and updates path patterns.
      * <p>
-     * This method registers the provided RestfulPatterns with the RestInterceptor and ensures that the corresponding
-     * paths are added to the interceptor registration.
+     * This method registers the provided RestPatterns with the RestInterceptor and ensures that the corresponding paths
+     * are added to the interceptor registration.
      *
-     * @param restfulPatterns the RestfulPatterns to be registered
+     * @param restPatterns the RestPatterns to be registered
      * @return this RestInterceptorRegistration instance for method chaining
      * @since 1.0.2
      */
-    RestInterceptorRegistration addRestfulPatterns(RestfulPatterns restfulPatterns) {
-        restInterceptor.addRestfulPatterns(restfulPatterns);
-        registration.addPathPatterns(restfulPatterns.getPaths());
+    RestInterceptorRegistration addRestPatterns(RestPatterns restPatterns) {
+        restInterceptor.addRestPatterns(restPatterns);
+        registration.addPathPatterns(restPatterns.getPaths());
         return this;
     }
 
     /**
-     * Add RestfulPatterns the interceptor should be excluded from.
+     * Add RestPatterns the interceptor should be excluded from.
      */
-    public RestInterceptorRegistration excludeRestfulPatterns(RestfulPattern... restfulPatterns) {
-        return excludeRestfulPatterns(Arrays.asList(restfulPatterns));
+    public RestInterceptorRegistration excludeRestPatterns(RestPattern... restPatterns) {
+        return excludeRestPatterns(Arrays.asList(restPatterns));
     }
 
     /**
-     * Collection-based variant of {@link #excludeRestfulPatterns(RestfulPattern...)}.
+     * Collection-based variant of {@link #excludeRestPatterns(RestPattern...)}.
      */
-    public RestInterceptorRegistration excludeRestfulPatterns(Collection<RestfulPattern> restfulPatterns) {
-        return excludeRestfulPatterns(RestfulPatterns.from(restfulPatterns));
+    public RestInterceptorRegistration excludeRestPatterns(Collection<RestPattern> restPatterns) {
+        return excludeRestPatterns(RestPatterns.from(restPatterns));
     }
 
     /**
-     * Adds the given RestfulPatterns to the RestInterceptor and updates exclude path patterns.
+     * Adds the given RestPatterns to the RestInterceptor and updates exclude path patterns.
      * <p>
-     * This method registers the provided RestfulPatterns with the RestInterceptor and ensures that the corresponding
-     * paths are added to the exclude path patterns of the interceptor registration.
+     * This method registers the provided RestPatterns with the RestInterceptor and ensures that the corresponding paths
+     * are added to the exclude path patterns of the interceptor registration.
      *
-     * @param excludePatterns the RestfulPatterns to be registered
+     * @param excludePatterns the RestPatterns to be registered
      * @return this RestInterceptorRegistration instance for method chaining
      * @since 1.0.2
      */
-    RestInterceptorRegistration excludeRestfulPatterns(RestfulPatterns excludePatterns) {
+    RestInterceptorRegistration excludeRestPatterns(RestPatterns excludePatterns) {
         restInterceptor.addExcludePatterns(excludePatterns);
         registration.excludePathPatterns(excludePatterns.getPaths());
         return this;
