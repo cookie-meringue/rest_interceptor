@@ -1,23 +1,25 @@
 # Rest Interceptor
 
-## 소개
+## Description
 
-Spring의 인터셉터는 URI 매칭을 기반으로 작동합니다.
+Spring's Interceptor works based on URI matching.
 
-하지만 Restful API 서버를 개발할 때, 동일한 URI에 대해 서로 다른 HTTP 메서드를 사용해야 하는 경우가 있습니다.
+However, when developing a Restful API server, there are times when you need to use different HTTP methods for the same
+uri.
 
-예:
+Example:
 
 - `GET /memos`
 - `POST /memos`
 
-`POST /memos`에만 사용자 인증을 적용하는 인터셉터를 개발하는 경우, 다음 절차를 수행해야 합니다.
+If you create an Interceptor to apply User authentication only to `POST /memos`, you would perform the following
+procedures.
 
-1. 인터셉터를 생성합니다.
-2. `WebMvcConfigurer` 구현체의 `addInterceptor()`에서 `/memos`에 대해 인터셉터를 등록합니다.
-3. 인터셉터 내부에서 Http Method가 GET인 경우 핸들링하지 않도록 구현합니다.
+1. Create an Interceptor.
+2. Register the Interceptor for `/memos` in the `addInterceptor()` of the `WebMvcConfigurer` implementation.
+3. Implement it so that `GET /memos` passes in the `preHandle()` of the Interceptor.
 
-구현 예시:
+like this:
 
 ```
 public class AuthInterceptor extends HandlerInterceptorAdapter {
@@ -40,11 +42,10 @@ public class WebConfig implements WebMvcConfigurer {
 }
 ```
 
-저는 이런 방식이 Restful 애플리케이션을 개발하는 데에 복잡성을 증가시킬 것이라고 생각했습니다.
-인터셉터 내부에서 API 구조를 알아야 하기 때문입니다.
-이런 불편함을 해소하기 위해, **URI 기반 매칭** 대신 **URI와 HTTP 메서드를 기반으로 매칭**하는 RestInterceptor 라이브러리를 만들었습니다.
+I thought this method would increase the complexity in a Restful application.
+So I created a RestInterceptor library that matches based on URI and HTTP Method rather than URI-based matching.
 
-## 의존성 추가 (build.gradle)
+## Add the dependency (build.gradle)
 
 ```
 repositories {
@@ -71,13 +72,13 @@ dependencies {
 }
 ```
 
-## 샘플 코드
+## Sample Code
 
-### `GET /memos requests`에 대해 로깅을 수행한다고 가정.
+### Assume we log `GET /memos requests`.
 
-### `POST /memos`는 로깅하지 않아야 합니다.
+### We do not log `POST /memos` .
 
-### 1. `RestInterceptor`를 상속받는 인터셉터를 구현합니다.
+### 1. Create Interceptor witch extends `RestInterceptor`.
 
 ```
 @Slf4j
@@ -92,7 +93,7 @@ public class RestTestInterceptor extends RestInterceptor {
 }
 ```
 
-### 2. WebMvcConfigurer의 구현체 클래스에 새로 만든 인터셉터를 추가합니다.
+### 2. Add Interceptor in the implementation configuration class of WebMvcConfigurer
 
 ```
 @Configuration
